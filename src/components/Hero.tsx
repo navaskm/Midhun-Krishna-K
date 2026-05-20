@@ -37,15 +37,79 @@ export default function Hero() {
         transition={{ duration: 0.7, ease: "easeOut" }}
       >
         <div className="order-2 lg:order-1">
-          <motion.p
-            className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface/80 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-muted"
-            initial={{ opacity: 0, x: -16 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            Graphic Designer
-          </motion.p>
+
+          <div className="relative inline-block overflow-hidden rounded-full border border-border bg-surface/90 px-4 pb-1.5">
+
+            {/* TOP */}
+            <motion.span
+              className="absolute left-0 top-0 h-[1.5px] bg-gradient-to-r from-yellow-400 via-orange-500 to-amber-300"
+              animate={{
+                x: ["-100%", "260%"],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              style={{ width: "35%" }}
+            />
+
+            {/* RIGHT */}
+            <motion.span
+              className="absolute right-0 top-0 w-[1.5px] bg-gradient-to-b from-yellow-400 via-orange-500 to-amber-300"
+              animate={{
+                y: ["-100%", "260%"],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "linear",
+                delay: 1,
+              }}
+              style={{ height: "60%" }}
+            />
+
+            {/* BOTTOM */}
+            <motion.span
+              className="absolute right-0 bottom-0 h-[1.5px] bg-gradient-to-l from-yellow-400 via-orange-500 to-amber-300"
+              animate={{
+                x: ["100%", "-260%"],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "linear",
+                delay: 2,
+              }}
+              style={{ width: "35%" }}
+            />
+
+            {/* LEFT */}
+            <motion.span
+              className="absolute left-0 bottom-0 w-[1.5px] bg-gradient-to-t from-yellow-400 via-orange-500 to-amber-300"
+              animate={{
+                y: ["100%", "-260%"],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "linear",
+                delay: 3,
+              }}
+              style={{ height: "60%" }}
+            />
+
+            {/* Content */}
+            <motion.p
+              className="relative z-10 inline-flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-muted backdrop-blur-sm"
+              initial={{ opacity: 0, x: -16 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+              Graphic Designer
+            </motion.p>
+          </div>
 
           <motion.h1
             className="font-display text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl"
@@ -117,40 +181,122 @@ export default function Hero() {
             transition={{ type: "spring", stiffness: 300 }}
           >
             <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-accent/40 via-accent-soft/20 to-transparent blur-sm" />
-            <div className="relative aspect-[4/5] w-64 overflow-hidden rounded-[1.75rem] border border-border bg-surface-elevated sm:w-72 lg:w-80">
-              {!imgError ? (
-                <Image
-                  src="/profile.jpeg"
-                  alt="Midhun Krishna — Graphic Designer"
-                  fill
-                  priority
-                  className="object-cover"
-                  sizes="(max-width: 768px) 256px, 320px"
-                  onError={() => setImgError(true)}
-                />
-              ) : (
+
+            <div className="relative">
+              {/* Snake Border */}
+              <div className="absolute -inset-[2px] overflow-hidden rounded-[2rem]">
                 <motion.div
-                  className="flex h-full flex-col items-center justify-center gap-3 bg-surface-elevated p-6 text-center"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                >
-                  <span className="font-display text-5xl font-bold text-accent">
-                    MK
-                  </span>
-                </motion.div>
-              )}
+                  className="absolute h-40 w-40 rounded-full bg-gradient-to-r from-yellow-400 via-orange-500 to-amber-300 blur-xl"
+                  animate={{
+                    top: [
+                      "-20%",
+                      "-20%",
+                      "80%",
+                      "80%",
+                      "-20%",
+                    ],
+                    left: [
+                      "-20%",
+                      "80%",
+                      "80%",
+                      "-20%",
+                      "-20%",
+                    ],
+                  }}
+                  transition={{
+                    duration: 6,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
+              </div>
+
+              {/* Glow */}
+              <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-accent/40 via-accent-soft/20 to-transparent blur-sm" />
+
+              {/* Image */}
+              <div className="relative aspect-[4/5] w-64 overflow-hidden rounded-[1.75rem] border border-border bg-surface-elevated sm:w-72 lg:w-80">
+                {!imgError ? (
+                  <Image
+                    src="/profile.jpeg"
+                    alt="Midhun Krishna — Graphic Designer"
+                    fill
+                    priority
+                    className="object-cover"
+                    sizes="(max-width: 768px) 256px, 320px"
+                    onError={() => setImgError(true)}
+                  />
+                ) : (
+                  <motion.div
+                    className="flex h-full flex-col items-center justify-center gap-3 bg-surface-elevated p-6 text-center"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                  >
+                    <span className="font-display text-5xl font-bold text-accent">
+                      MK
+                    </span>
+                  </motion.div>
+                )}
+              </div>
             </div>
+
             <motion.div
-              className="absolute -bottom-4 -right-4 rounded-2xl border border-border bg-surface px-4 py-3 card-glow"
+              className="absolute -bottom-4 -right-4 overflow-hidden rounded-2xl border border-border bg-surface px-4 py-3 card-glow"
+
               initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+
+              transition={{
+                delay: 0.9,
+              }}
             >
-              <p className="text-xs text-muted">Specializing in</p>
-              <p className="font-display text-sm font-semibold">
-                Visual Design
-              </p>
+              {/* Snake Animation */}
+              <div className="absolute inset-0 overflow-hidden rounded-2xl">
+                
+                {/* Snake 1 */}
+                <motion.div
+                  className="absolute h-20 w-20 rounded-full bg-gradient-to-r from-yellow-400 via-orange-500 to-amber-300 blur-lg"
+                  animate={{
+                    top: ["-30%", "-30%", "100%", "100%", "-30%"],
+                    left: ["70%", "100%", "100%", "-30%", "70%"],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
+
+                {/* Snake 2 */}
+                <motion.div
+                  className="absolute h-20 w-20 rounded-full bg-gradient-to-r from-orange-400 via-yellow-300 to-amber-500 blur-lg"
+                  animate={{
+                    top: ["100%", "100%", "-30%", "-30%", "100%"],
+                    left: ["-30%", "100%", "100%", "-30%", "-30%"],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
+              </div>
+
+              {/* Content */}
+              <div className="relative z-10">
+                <p className="text-xs text-muted">
+                  Specializing in
+                </p>
+
+                <p className="font-display text-sm font-semibold">
+                  Visual Design
+                </p>
+              </div>
             </motion.div>
+
           </motion.div>
         </motion.div>
       </motion.div>
