@@ -1,9 +1,33 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useState } from "react";
 import { contact } from "@/data/portfolio";
 
 export default function Contact() {
+
+  const [result, setResult] = useState("");
+
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setResult("Sending....");
+    const formData = new FormData(event.target as HTMLFormElement);
+    formData.append("access_key", "57ffb462-d483-488c-add0-fa7272e6d66c");
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      setResult("Form Submitted Successfully");
+      (event.target as HTMLFormElement).reset();
+    } else {
+      setResult("Error");
+    }
+  };
+
   return (
     <section
       id="contact"
@@ -63,17 +87,7 @@ export default function Contact() {
 
             <form
               className="flex flex-col justify-center gap-5 p-8 sm:p-10"
-              onSubmit={(e) => {
-                e.preventDefault();
-                const data = new FormData(e.currentTarget);
-                const name = data.get("name") as string;
-                const message = data.get("message") as string;
-                const subject = encodeURIComponent(
-                  `Portfolio inquiry from ${name}`,
-                );
-                const body = encodeURIComponent(message);
-                window.location.href = `mailto:${contact.email}?subject=${subject}&body=${body}`;
-              }}
+              onSubmit={onSubmit}
             >
               <div>
                 <label
@@ -130,6 +144,7 @@ export default function Contact() {
               >
                 Send Message
               </motion.button>
+              <p className="mt-4">{result}</p>
             </form>
           </div>
         </motion.div>
